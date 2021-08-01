@@ -6,7 +6,8 @@
       'measurement',
       'date',
       'units',
-      'manual_entry'
+      'manual_entry',
+      'comment'
     ],
     properties: {
       user_id: {
