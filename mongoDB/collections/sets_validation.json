@@ -3,11 +3,12 @@
     required: [
       'user_id',
       'date',
+      'exercise',
       'reps',
       'weight',
       'time',
       'personal_record',
-      'exercise'
+      'comment'
     ],
     properties: {
       user_id: {
@@ -17,6 +18,10 @@
       date: {
         bsonType: 'date',
         description: 'must be a date and is required'
+      },
+      exercise: {
+        bsonType: 'objectId',
+        description: 'must be an objectId'
       },
       reps: {
         bsonType: 'int',
@@ -36,13 +41,13 @@
         maximum: 100000,
         description: 'must be a int in [ 0, 100000 ] and is required'
       },
-      comment: {
-        bsonType: 'string',
-        description: 'must be a string'
-      },
       personal_record: {
         bsonType: 'bool',
         description: 'must be a bool and is required'
+      },
+      comment: {
+        bsonType: 'string',
+        description: 'must be a string'
       }
     }
   }
