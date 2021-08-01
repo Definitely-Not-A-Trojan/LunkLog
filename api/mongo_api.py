@@ -1,5 +1,8 @@
 import pymongo
 
+from flask import Flask
+from flask_restful import Resource, Api
+
 class MongoAPI:
     """
     MongoAPI
@@ -38,7 +41,6 @@ class MongoAPI:
         }
         """
         self.database.Exercises.insert_one(json)
-
 
     def add_set(self, json):
         """
@@ -91,4 +93,45 @@ class MongoAPI:
             name (str): Name used to get user_id
         """
         pass
+
+class Exercises(Resource):
+    def __init__(self):
+        pass
+
+    def get(self):
+        pass
+    
+    def post(self):
+        pass
+
+class Sets(Resource):
+    def __init__(self):
+        pass
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+class Measurements(Resource):
+    def __init__(self):
+        pass
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+class Users(Resource):
+    def __init__(self):
+        pass
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
 
