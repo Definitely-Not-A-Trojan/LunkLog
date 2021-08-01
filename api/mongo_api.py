@@ -1,8 +1,5 @@
 import pymongo
 
-from flask import Flask
-from flask_restful import Resource, Api
-
 class MongoAPI:
     """
     MongoAPI
@@ -40,7 +37,7 @@ class MongoAPI:
             "user_created"   -> bool
         }
         """
-        self.database.Exercises.insert_one(json)
+        self.database.exercises.insert_one(json)
 
     def add_set(self, json):
         """
@@ -67,6 +64,7 @@ class MongoAPI:
             personal_record -> bool
         }
         """
+        pass
 
     def add_measurement(self, json):
         pass
@@ -80,12 +78,24 @@ class MongoAPI:
     def lookup_set(self, name):
         pass
     
-    def lookup_exercise(self, name):
-        pass
+    def lookup_exercise(self, name): #TODO: update docs
+        """
+        Look up Exercise
+            Returns an exercise object ID given a name
+
+        Args:
+            name (str): name of exercise to find
+
+        Returns:
+            object id of the exercise
+        """
+        response = self.database.exercises.find_one({"name": name})
+        print(response)
+        return response["muscle_groups"]
 
     def lookup_user(self, name):
         """
-        Lookup User
+        Look up User
             Looks up a user in the Users collection given
             a string name.
 
@@ -93,45 +103,4 @@ class MongoAPI:
             name (str): Name used to get user_id
         """
         pass
-
-class Exercises(Resource):
-    def __init__(self):
-        pass
-
-    def get(self):
-        pass
-    
-    def post(self):
-        pass
-
-class Sets(Resource):
-    def __init__(self):
-        pass
-
-    def get(self):
-        pass
-
-    def post(self):
-        pass
-
-class Measurements(Resource):
-    def __init__(self):
-        pass
-
-    def get(self):
-        pass
-
-    def post(self):
-        pass
-
-class Users(Resource):
-    def __init__(self):
-        pass
-
-    def get(self):
-        pass
-
-    def post(self):
-        pass
-
 
