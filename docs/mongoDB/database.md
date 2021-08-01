@@ -47,6 +47,19 @@ We will most likely separate into two main databases, one for release and one fo
       - (objectId) user_id
       - (object array) achievements
 
+  - **groups**
+    - Stores all user groups
+      - (objectId) group_id
+      - (string) group_name
+      - (string) group_description
+      - (string) group_motto
+      - (int32) user_count
+
+  - **achievements**
+    - Stores all possible achievements.
+      - (string) name
+      - (string) description
+
   - **measurements**
     - Weight, body fat percentage, height, body part circumference measurements.
       - (objectId) user_id
