@@ -8,5 +8,10 @@ We will most likely separate into two main databases, one for release and one fo
 
 ### Collections (Tables)
   - Users
+    - User login and basic communication info.
   - Measurements
-  - Workouts
+    - Weight, body fat percentage, height, body part circumference measurements.
+  - Sets
+    - Logging for exercise execution.
+  - Exercises
+    - Exercise information, targeted muscle groups.
