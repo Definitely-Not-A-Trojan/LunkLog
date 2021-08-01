@@ -7,11 +7,70 @@ We will most likely separate into two main databases, one for release and one fo
   - LunkLog_Release
 
 ### Collections (Tables)
-  - Users
+  - **users**
     - User login and basic communication info.
-  - Measurements
+      - (objectId) user_id
+      - (string) username
+      - (int32) age
+      - (int32) height
+      - (string) email_address
+      - (string) phone_number
+      - (date) date_joined
+
+  - **users.options**
+    - Users options
+      - (bool) profile_public
+      - (bool) 2fa_enabled
+      - (string enum) units
+      - (bool) email_updates_enabled
+
+  - **users.friends**
+    - Stores users friends list, privacy, and associations with friends.
+      - (objectId) user_id
+      - (object array) friends
+      - (object array) blocked_users
+
+  - **users.groups**
+    - Stores users groups, privacy, and association with the group. 
+      - (objectId) group_id
+      - (object array) users
+      - (objectId array) blocked_users
+      - (enum) privacy
+
+  - **users.goals**
+    - Stores user defined goals.
+      - (objectId) user_id
+      - (object array) goals
+
+  - **users.achievements**
+    - Stores user achieved achievements.
+      - (objectId) user_id
+      - (object array) achievements
+
+  - **measurements**
     - Weight, body fat percentage, height, body part circumference measurements.
-  - Sets
+      - (objectId) user_id
+      - (string) name
+      - (double) measurement
+      - (string enum) units
+      - (bool) manual_entry
+
+
+  - **sets**
     - Logging for exercise execution.
-  - Exercises
+      - (objectId) user_id
+      - (int32) rep
+      - (double) weight
+      - (double) time
+      - (bool) personal_record
+      - (string) comment
+      - (date) date
+
+
+  - **exercises**
     - Exercise information, targeted muscle groups.
+      - (string) name
+      - (string enum) primary_target
+      - (string array) muscle_groups
+      - (string array) equipment_required
+      - (objectId) created_by
