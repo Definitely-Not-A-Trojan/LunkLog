@@ -1,7 +1,7 @@
 # LunkLog Overall Design
 
 ## Component Block Diagram
-![Component Block Diagram](/img/overall_block_diagram.svg)
+![Component Block Diagram](/docs/img/overall_block_diagram.svg)
 
 ## Front End
 LunkLog will provide the functionality to users described below through the front end.
