@@ -2,8 +2,8 @@
   $jsonSchema: {
     required: [
       'user_id',
+      'name',
       'measurement',
-      'value',
       'date',
       'units',
       'manual_entry'
@@ -13,11 +13,11 @@
         bsonType: 'string',
         description: 'must be a string and is required'
       },
-      measurement: {
+      name: {
         bsonType: 'string',
         description: 'must be a string and is required'
       },
-      value: {
+      measurement: {
         bsonType: 'double',
         minimum: 0,
         maximum: 10000,

@@ -2,7 +2,6 @@
   $jsonSchema: {
     required: [
       'name',
-      'difficulty',
       'muscle_groups',
       'primary_target',
       'user_created',
@@ -11,16 +10,6 @@
     properties: {
       name: {
         bsonType: 'string',
-        description: 'must be a string and is required'
-      },
-      difficulty: {
-        bsonType: 'string',
-        'enum': [
-          'novice',
-          'amateur',
-          'intermediate',
-          'expert'
-        ],
         description: 'must be a string and is required'
       },
       muscle_groups: {
