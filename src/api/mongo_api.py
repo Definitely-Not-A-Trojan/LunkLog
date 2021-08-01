@@ -1,4 +1,7 @@
+import json
 import pymongo
+
+from bson import json_util
 
 class MongoAPI:
     """
@@ -15,6 +18,9 @@ class MongoAPI:
         else:
             # Current test database, name subject to change
             self.database = client.LunkLog_V0
+
+    def parse_json(self, data):
+        return json.loads(json_util.dumps(data))
 
     def add_exercise(self, json):
         """
@@ -90,8 +96,7 @@ class MongoAPI:
             object id of the exercise
         """
         response = self.database.exercises.find_one({"name": name})
-        print(response)
-        return response["muscle_groups"]
+        return self.parse_json(response)
 
     def lookup_user(self, name):
         """
@@ -102,5 +107,6 @@ class MongoAPI:
         Args:
             name (str): Name used to get user_id
         """
-        pass
+        response = self.database.users.find_one({"username": name})
+        return self.parse_json(response)
 

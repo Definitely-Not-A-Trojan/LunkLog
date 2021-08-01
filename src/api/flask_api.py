@@ -33,11 +33,8 @@ class Measurements(Resource):
         pass
 
 class Users(Resource):
-    def __init__(self, mongo_api):
-        pass
-
-    def get(self):
-        pass
+    def get(self, username):
+        return mi_mongo.lookup_user(username)
 
     def post(self):
         pass
@@ -48,7 +45,9 @@ if __name__ == "__main__":
 
     mi_mongo = MongoAPI(host=test_connection_str)
 
-    api.add_resource(Sets, '/')
+    api.add_resource(Sets, "/")
     api.add_resource(Exercises, "/exercises")
+    api.add_resource(Measurements, "/measurements")
+    api.add_resource(Users, "/users/<string:username>")
 
     app.run(debug=True)
