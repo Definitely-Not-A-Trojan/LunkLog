@@ -1,0 +1,66 @@
+{
+  $jsonSchema: {
+    required: [
+      'username',
+      'name',
+      'age',
+      'height',
+      'units',
+      'email_address',
+      'email_updates_enabled',
+      'phone_number',
+      '2fa_enabled',
+      'date_joined'
+    ],
+    properties: {
+      username: {
+        bsonType: 'string',
+        description: 'must be a string and is required'
+      },
+      name: {
+        bsonType: 'string',
+        description: 'must be a string and is required'
+      },
+      age: {
+        bsonType: 'int',
+        minimum: 0,
+        maximum: 150,
+        description: 'must be an integer in [ 0, 150 ] and is required'
+      },
+      height: {
+        bsonType: 'int',
+        minimum: 0,
+        maximum: 150,
+        description: 'must be an integer in [ 0, 150 ] and is required'
+      },
+      units: {
+        bsonType: 'string',
+        'enum': [
+          'imperial',
+          'metric'
+        ],
+        description: 'must be a enum in [ metric, imperial ] and is required'
+      },
+      email_address: {
+        bsonType: 'string',
+        description: 'must be a string and is required'
+      },
+      email_updates_enabled: {
+        bsonType: 'bool',
+        description: 'must be a bool and is required'
+      },
+      phone_number: {
+        bsonType: 'string',
+        description: 'must be a string and is required'
+      },
+      '2fa_enabled': {
+        bsonType: 'bool',
+        description: 'must be a bool and is required'
+      },
+      date_joined: {
+        bsonType: 'date',
+        description: 'must be a date and is required'
+      }
+    }
+  }
+}

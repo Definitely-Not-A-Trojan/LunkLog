@@ -1,0 +1,49 @@
+{
+  $jsonSchema: {
+    required: [
+      'user_id',
+      'date',
+      'reps',
+      'weight',
+      'time',
+      'personal_record',
+      'exercise'
+    ],
+    properties: {
+      user_id: {
+        bsonType: 'objectId',
+        description: 'must be an objectId and is required'
+      },
+      date: {
+        bsonType: 'date',
+        description: 'must be a date and is required'
+      },
+      reps: {
+        bsonType: 'int',
+        minimum: 0,
+        maximum: 100000,
+        description: 'must be an integer in [ 0, 100000 ] and is required'
+      },
+      weight: {
+        bsonType: 'double',
+        minimum: 0,
+        maximum: 100000,
+        description: 'must be an integer in [ 0, 100000 ] and is required'
+      },
+      time: {
+        bsonType: 'int',
+        minimum: 0,
+        maximum: 100000,
+        description: 'must be a int in [ 0, 100000 ] and is required'
+      },
+      comment: {
+        bsonType: 'string',
+        description: 'must be a string'
+      },
+      personal_record: {
+        bsonType: 'bool',
+        description: 'must be a bool and is required'
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  $jsonSchema: {
+    required: [
+      'user_id',
+      'measurement',
+      'value',
+      'date',
+      'units',
+      'manual_entry'
+    ],
+    properties: {
+      user_id: {
+        bsonType: 'string',
+        description: 'must be a string and is required'
+      },
+      measurement: {
+        bsonType: 'string',
+        description: 'must be a string and is required'
+      },
+      value: {
+        bsonType: 'double',
+        minimum: 0,
+        maximum: 10000,
+        description: 'must be an double in [ 0, 10000 ] and is required'
+      },
+      date: {
+        bsonType: 'date',
+        description: 'must be an date and is required'
+      },
+      units: {
+        bsonType: 'string',
+        'enum': [
+          'imperial',
+          'metric'
+        ],
+        description: 'must be a enum in [ metric, imperial ] and is required'
+      },
+      manual_entry: {
+        bsonType: 'bool',
+        description: 'must be a bool and is required'
+      },
+      comment: {
+        bsonType: 'string',
+        description: 'must be a string'
+      }
+    }
+  }
+}

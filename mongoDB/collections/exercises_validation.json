@@ -1,0 +1,44 @@
+{
+  $jsonSchema: {
+    required: [
+      'name',
+      'difficulty',
+      'muscle_groups',
+      'primary_target',
+      'user_created',
+      'equipment_required'
+    ],
+    properties: {
+      name: {
+        bsonType: 'string',
+        description: 'must be a string and is required'
+      },
+      difficulty: {
+        bsonType: 'string',
+        'enum': [
+          'novice',
+          'amateur',
+          'intermediate',
+          'expert'
+        ],
+        description: 'must be a string and is required'
+      },
+      muscle_groups: {
+        bsonType: 'array',
+        description: 'must be a array and is required'
+      },
+      primary_target: {
+        bsonType: 'string',
+        description: 'must be an string and is required'
+      },
+      user_created: {
+        bsonType: 'bool',
+        description: 'must be a bool and is required'
+      },
+      equipment_required: {
+        bsonType: 'bool',
+        description: 'must be a bool and is required'
+      }
+    }
+  }
+}
