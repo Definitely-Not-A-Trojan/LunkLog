@@ -31,6 +31,8 @@
    - Friends can view each other's historical work outs
    - Friends can compare each other's workouts
 - Users may remove current friends
+- Users may allow other users to view their data with granularity
+   - For example, allowing another user to only view PRs or view everything
 
 ### Other
 - Users may enter a new exercise to the database
