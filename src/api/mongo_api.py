@@ -76,15 +76,36 @@ class MongoAPI:
     def add_measurement(self, json):
         pass
 
-    def get_set(self, json):
-        pass
+    def get_sets(self, filters, data_type="raw"): # TODO: update docs
+        """
+        Get Sets
+            Generates a [object?] and returns it
 
-    def getall_sets(self):
-        return self.parse_json(self.database.sets.find({}))
+        Args:
+            filters (dict): a JSON object to filter the sets collection
+
+        Returns:
+            Something
+        """
+        response = self.database.sets.find(filters)
+
+        if data_type == "JSON":
+            response = self.parse_json(response)
+        return response
+
+    def getall_sets(self, data_type="raw"):
+        response = self.get_sets(filters={})
+
+        if data_type == "JSON":
+            response = self.parse_json(response)
+        return response
 
     def getall_userssets(self, username, data_type="raw"):
         user_id = self.lookup_user(username)
-        response = self.database.sets.find({"user_id": user_id})
+
+        filters = {"user_id": user_id}
+        response = self.get_sets(filters)
+        #response = self.database.sets.find({"user_id": user_id})
 
         if data_type == "JSON":
             response = self.parse_json(response)
@@ -92,7 +113,10 @@ class MongoAPI:
 
     def getall_usergroupsets(self, username, groupname, data_type="raw"):
         group_members = self.get_usergroup(username, groupname)["members"]
-        response = self.database.sets.find({"user_id": {"$in": group_members}})
+
+        # Create a filter from what we know and use the get_sets()
+        filters = {"user_id": {"$in": group_members}}
+        response = self.get_sets(filters)
 
         if data_type == "JSON":
             response = self.parse_json(response)
@@ -103,13 +127,22 @@ class MongoAPI:
         user_id = self.lookup_user(name)["_id"]
         user_groups = self.database.users.groups.find_one({"user_id": ObjectId(user_id)})["groups"]
 
-        # This only returns the user's first group
+        # This only returns the user's first group TODO: please replace
         response = self.database.groups.find_one({"_id": ObjectId(user_groups[0])})
 
         if data_type == "JSON":
             response = self.parse_json(response)
         return response
+    
+    def get_usergroup_sets(self, name, groupname, filters, data_type="raw"):
+        group_members = self.get_usergroup(name, groupname)["members"]
 
+        filters["user_id"] = {"$in": group_members}
+        
+        response = self.get_sets(filters)
+        if data_type == "JSON":
+            response = self.parse_json(response)
+        return response
 
     def update_set(self, json):
         pass

@@ -3,6 +3,8 @@ from mongo_api import MongoAPI
 from flask         import Flask, request
 from flask_restful import Resource, Api
 
+import json
+
 # Put your connection string into a file named "test_connection_str"
 # in LunkLog/src/api
 with open("./test_connection_str", "r") as in_file:
@@ -21,7 +23,7 @@ class Exercises(Resource):
 
 class Sets(Resource):
     def get(self):
-        return mi_mongo.getall_sets()
+        return mi_mongo.getall_sets(data_type="JSON")
     
     def put(self):
         pass
@@ -55,7 +57,9 @@ class UsersGroupsSets(Resource):
         return mi_mongo.getall_usergroupsets(username, groupname, data_type="JSON")
     
     def put(self, username, groupname):
-        pass
+        filters = json.loads(request.form["filters"])
+        #filters = request.form["filters"]
+        return mi_mongo.get_usergroup_sets(username, groupname, filters, data_type="JSON")
 
 class UsersSets(Resource):
     def get(self, username):
