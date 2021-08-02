@@ -2,6 +2,10 @@ import json
 import pymongo
 
 from bson import json_util
+from bson import ObjectId
+
+red = "\033[91;1m"
+white = "\033[31;0m"
 
 class MongoAPI:
     """
@@ -78,13 +82,24 @@ class MongoAPI:
     def get_set(self, json):
         pass
 
+    def get_usergroup(self, name, groupname, data_type="raw"):
+        user_id = self.lookup_user(name)["_id"]
+        user_groups = self.database.users.groups.find_one({"user_id": ObjectId(user_id)})["groups"]
+
+        response = self.database.groups.find_one({"_id": ObjectId(user_groups[0])})
+
+        if data_type == "JSON":
+            response = self.parse_json(response)
+        return response
+
+
     def update_set(self, json):
         pass
     
     def lookup_set(self, name):
         pass
     
-    def lookup_exercise(self, name): #TODO: update docs
+    def lookup_exercise(self, name, data_type="raw"): #TODO: update docs
         """
         Look up Exercise
             Returns an exercise object ID given a name
@@ -96,9 +111,11 @@ class MongoAPI:
             object id of the exercise
         """
         response = self.database.exercises.find_one({"name": name})
-        return self.parse_json(response)
+        if data_type == "JSON":
+            response = self.parse_json(response)
+        return response
 
-    def lookup_user(self, name):
+    def lookup_user(self, name, data_type="raw"):
         """
         Look up User
             Looks up a user in the Users collection given
@@ -108,5 +125,12 @@ class MongoAPI:
             name (str): Name used to get user_id
         """
         response = self.database.users.find_one({"username": name})
-        return self.parse_json(response)
+        if data_type == "JSON":
+            response = self.parse_json(response)
+        return response
 
+    def lookup_group(self, name):
+        response = self.parse_json(self.database.groups.find_one({"name": name}))
+        if data_type == "JSON":
+            response = self.parse_json(response)
+        return response

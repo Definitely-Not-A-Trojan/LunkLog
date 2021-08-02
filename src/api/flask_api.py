@@ -3,6 +3,10 @@ from mongo_api import MongoAPI
 from flask         import Flask, request
 from flask_restful import Resource, Api
 
+# Put your connection string into a file named "test_connection_str"
+# in LunkLog/src/api
+with open("./test_connection_str", "r") as in_file:
+    test_connection_str = in_file.readline()
 
 global mi_mongo
 
@@ -39,6 +43,11 @@ class Users(Resource):
     def post(self):
         pass
 
+class UsersGroups(Resource):
+    def get(self, username, groupname):
+        return mi_mongo.get_usergroup(username, groupname, data_type="JSON")
+
+
 if __name__ == "__main__":
     app = Flask(__name__)
     api = Api(app)
@@ -49,5 +58,6 @@ if __name__ == "__main__":
     api.add_resource(Exercises, "/exercises")
     api.add_resource(Measurements, "/measurements")
     api.add_resource(Users, "/users/<string:username>")
+    api.add_resource(UsersGroups, "/users/<string:username>/groups/<string:groupname>")
 
     app.run(debug=True)
