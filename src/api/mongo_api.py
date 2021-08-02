@@ -4,9 +4,6 @@ import pymongo
 from bson import json_util
 from bson import ObjectId
 
-red = "\033[91;1m"
-white = "\033[31;0m"
-
 class MongoAPI:
     """
     MongoAPI
@@ -82,10 +79,31 @@ class MongoAPI:
     def get_set(self, json):
         pass
 
+    def getall_sets(self):
+        return self.parse_json(self.database.sets.find({}))
+
+    def getall_userssets(self, username, data_type="raw"):
+        user_id = self.lookup_user(username)
+        response = self.database.sets.find({"user_id": user_id})
+
+        if data_type == "JSON":
+            response = self.parse_json(response)
+        return response
+
+    def getall_usergroupsets(self, username, groupname, data_type="raw"):
+        group_members = self.get_usergroup(username, groupname)["members"]
+        response = self.database.sets.find({"user_id": {"$in": group_members}})
+
+        if data_type == "JSON":
+            response = self.parse_json(response)
+        return response
+
+
     def get_usergroup(self, name, groupname, data_type="raw"):
         user_id = self.lookup_user(name)["_id"]
         user_groups = self.database.users.groups.find_one({"user_id": ObjectId(user_id)})["groups"]
 
+        # This only returns the user's first group
         response = self.database.groups.find_one({"_id": ObjectId(user_groups[0])})
 
         if data_type == "JSON":

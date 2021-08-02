@@ -21,7 +21,10 @@ class Exercises(Resource):
 
 class Sets(Resource):
     def get(self):
-        return {"hello": "world"}
+        return mi_mongo.getall_sets()
+    
+    def put(self):
+        pass
 
     def post(self):
         pass
@@ -38,7 +41,7 @@ class Measurements(Resource):
 
 class Users(Resource):
     def get(self, username):
-        return mi_mongo.lookup_user(username)
+        return mi_mongo.lookup_user(username, data_type="JSON")
 
     def post(self):
         pass
@@ -47,6 +50,21 @@ class UsersGroups(Resource):
     def get(self, username, groupname):
         return mi_mongo.get_usergroup(username, groupname, data_type="JSON")
 
+class UsersGroupsSets(Resource):
+    def get(self, username, groupname):
+        return mi_mongo.getall_usergroupsets(username, groupname, data_type="JSON")
+    
+    def put(self, username, groupname):
+        pass
+
+class UsersSets(Resource):
+    def get(self, username):
+        return mi_mongo.getall_userssets(username, data_type="JSON")
+    
+    # This is one that takes in data: specific filters
+    def put(self, username):
+        pass
+
 
 if __name__ == "__main__":
     app = Flask(__name__)
@@ -54,10 +72,12 @@ if __name__ == "__main__":
 
     mi_mongo = MongoAPI(host=test_connection_str)
 
-    api.add_resource(Sets, "/")
+    api.add_resource(Sets, "/sets")
     api.add_resource(Exercises, "/exercises")
     api.add_resource(Measurements, "/measurements")
     api.add_resource(Users, "/users/<string:username>")
     api.add_resource(UsersGroups, "/users/<string:username>/groups/<string:groupname>")
+    api.add_resource(UsersGroupsSets, "/users/<string:username>/groups/<string:groupname>/sets")
+    api.add_resource(UsersSets, "/users/<string:username>/sets")
 
     app.run(debug=True)
